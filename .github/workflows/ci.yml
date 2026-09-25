@@ -25,3 +25,16 @@ jobs:
 
       - name: Jalankan test
         run: python -m pytest tests/ -v
+
+  sast:
+    name: Semgrep SAST
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+
+    steps:
+      - name: Ambil kode
+        uses: actions/checkout@v6
+
+      - name: Jalankan Semgrep
+        run: semgrep scan --config p/python --error --verbose
